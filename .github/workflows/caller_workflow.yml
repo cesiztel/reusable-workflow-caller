@@ -1,0 +1,9 @@
+# Trigger the workflow from another repository
+name: Trigger workflow simple app dispatch
+on: 
+  workflow_dispatch:
+
+jobs:
+  invoke_app_from_caller:
+      uses: cesiztel/reusable-workflow/.github/workflows/simple_app.yml@main
+      secrets: inherit
