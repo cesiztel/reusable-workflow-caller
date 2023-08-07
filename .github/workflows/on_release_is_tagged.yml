@@ -18,8 +18,9 @@
           with:
             configurationJson: |
               {
-                "pr_template": "- #{{TITLE}}\n   - PR: #{{NUMBER}}",
-                "max_pull_requests": 200
+                "pr_template": "#{{TITLE}}\n#{{NUMBER}}\n#{{URL}}\n#{{MERGED_AT}}\n#{{AUTHOR}}\n#{{LABELS}}\n#{{MILESTONE}}\n#{{BODY}}\n#{{ASSIGNEES}}\n#{{REVIEWERS}}",
+                "max_pull_requests": 1000,
+                "max_back_track_time_days": 1000
               }
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
