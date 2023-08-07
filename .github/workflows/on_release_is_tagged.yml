@@ -1,24 +1,32 @@
-on:
-  push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+  on:
+    push:
+      # Sequence of patterns matched against refs/tags
+      tags:
+        - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
-name: Create Github release after tag releasable code
+  name: Create Github release after tag releasable code
 
-jobs:
-  create_release:
-    name: Create Github release
-    if: startsWith(github.ref, 'refs/tags/')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Create Release
-        uses: mikepenz/action-gh-release@v0.2.0-a03 #softprops/action-gh-release
-        with:
-          body: ${{steps.github_release.outputs.changelog}}
+  jobs:
+    create_release:
+      name: Create Github release
+      if: startsWith(github.ref, 'refs/tags/')
+      runs-on: ubuntu-latest
+      steps:
+        - name: Build Changelog
+          id: github_release
+          uses: mikepenz/release-changelog-builder-action@v3
+          with:
+            configurationJson: |
+              {
+                "template": "#{{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n#{{UNCATEGORIZED}}\n</details>",
+                "pr_template": "- #{{TITLE}}\n   - PR: #{{NUMBER}}",
+                "empty_template": "- no changes",
+                "max_pull_requests": 200,
+              }
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+        - name: Create Release
+          uses: mikepenz/action-gh-release@v0.2.0-a03 #softprops/action-gh-release
+          with:
+            body: ${{steps.github_release.outputs.changelog}}
