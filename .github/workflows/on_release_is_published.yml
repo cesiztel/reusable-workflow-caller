@@ -1,0 +1,14 @@
+name: On Github Release is publised
+
+# This github action call the release pipeline workflow which includes
+# the deployment of the latest version of this repository.
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  call_release_pipeline:
+    name: Run release pipeline
+    uses: Postnl-Production/ebe-release-pipeline/.github/workflows/release_ebe.yml@main
+    secrets: inherit
