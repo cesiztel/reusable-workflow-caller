@@ -14,18 +14,32 @@
       steps:
         - name: Build Changelog
           id: github_release
-          uses: mikepenz/release-changelog-builder-action@v3
-          with:
-            configurationJson: |
-              {
-                "pr_template": "#{{TITLE}}\n#{{NUMBER}}\n#{{URL}}\n#{{MERGED_AT}}\n#{{AUTHOR}}\n#{{LABELS}}\n#{{MILESTONE}}\n#{{BODY}}\n#{{ASSIGNEES}}\n#{{REVIEWERS}}",
-                "max_pull_requests": 1000,
-                "max_back_track_time_days": 1000
-              }
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: |
+            # Start building change log
+            # 1. Get the previous tag
+            PREVIOUS_TAG=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
+            PR_RELEASE=$(git log --merges --grep 'Merge pull request' --pretty=format:%s $PREVIOUS_TAG..v1.5.0 | grep -o '#[0-9]*')
+            
+            # List of the PRS of the release $PR_RELEASE
+            # Preparing notes template"
+            NOTES="User story | Description \n -- | -- \n"
+            
+            # Looping over releaseses to get the data
+            for pr_number in $PR_RELEASE
+            do
+                # Getting data from PR: ${pr_number}
+                change_log_entry_title=$(gh pr view ${pr_number} | head -n 1 )
+                # Stripping the title 
+                read lastElement <<< "${change_log_entry_title##*:}"
+                # Adding release to the notes
+                NOTES+="$lastElement \n"
+            done
+            
+            # Preparing output
+            echo "::add-mask::$release_notes"
+            echo "$NOTES=$release_notes" >> "$GITHUB_OUTPUT"
         
         - name: Create Release
           uses: mikepenz/action-gh-release@v0.2.0-a03 #softprops/action-gh-release
           with:
-            body: ${{steps.github_release.outputs.changelog}}
+            body: ${{steps.github_release.outputs.release_notes}}
