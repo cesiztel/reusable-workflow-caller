@@ -19,7 +19,7 @@
             configurationJson: |
               {
                 "pr_template": "- #{{TITLE}}\n   - PR: #{{NUMBER}}",
-                "max_pull_requests": 200,
+                "max_pull_requests": 200
               }
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
