@@ -40,6 +40,7 @@
             # Preparing output
             echo "::add-mask::$release_notes"
             echo "$NOTES=$release_notes" >> "$GITHUB_OUTPUT"
+          shell: bash
         
         - name: Create Release
           uses: mikepenz/action-gh-release@v0.2.0-a03 #softprops/action-gh-release
