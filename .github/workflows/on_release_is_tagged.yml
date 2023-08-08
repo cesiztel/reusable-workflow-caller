@@ -40,7 +40,6 @@
               # Getting data from PR: ${pr_number}
               # change_log_entry_title=`gh pr view ${pr_number:1} | head -n 1`
               gh pr view 11
-              echo $change_log_entry_title
               # Stripping the title 
               read lastElement <<< "${change_log_entry_title##*:}"
               # Adding release to the notes
