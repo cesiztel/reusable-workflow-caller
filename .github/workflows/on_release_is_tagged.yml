@@ -30,15 +30,15 @@
              
             # List of the PRS of the release $PR_RELEASE
             # Preparing notes template"
-            NOTES=""
+            NOTES="🚀 Features included on the release ${{github.ref}}: <br>"
             # Looping over releaseses to get the data
             for pr_number in $PR_RELEASE
             do
               pr_number=${pr_number:1}
               change_log_entry_title=`gh pr view $pr_number | head -n 1`
-              NOTES="*$change_log_entry_title"
+              last_element=${change_log_entry_title##*:}
+              NOTES+="* $last_element"
             done
-            echo $NOTES
             # Preparing output
             echo "release_notes=$NOTES" >> "$GITHUB_OUTPUT"
           shell: bash
