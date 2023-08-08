@@ -33,7 +33,7 @@
             # List of the PRS of the release $PR_RELEASE
             # Preparing notes template"
             echo $PR_RELEASE
-            NOTES="User story | Description \n -- | -- \n"
+            NOTES="User story | Description \n -- | --"
             echo $NOTES
             # Looping over releaseses to get the data
             for pr_number in $PR_RELEASE
@@ -47,8 +47,8 @@
               NOTES="$NOTES\n$last_element"
             done
             echo $NOTES
-            printf $NOTES
-            FINAL_NOTES=`printf $NOTES`            
+            FINAL_NOTES=`printf "$NOTES"`
+            echo $FINAL_NOTES    
             # Preparing output
             echo "release_notes=$FINAL_NOTES" >> "$GITHUB_OUTPUT"
           shell: bash
