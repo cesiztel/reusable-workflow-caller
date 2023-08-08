@@ -1,7 +1,8 @@
 # Start building change log
 # 1. Get the previous tag
 PREVIOUS_TAG=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
-PR_RELEASE=$(git log --merges --grep 'Merge pull request' --pretty=format:%s $PREVIOUS_TAG..v1.5.0 | grep -o '#[0-9]*')
+echo $PREVIOUS_TAG
+PR_RELEASE=$(git log --merges --grep 'Merge pull request' --pretty=format:%s $PREVIOUS_TAG..v1.6.0 | grep -o '#[0-9]*')
 
 # List of the PRS of the release $PR_RELEASE
 # Preparing notes template"
@@ -19,4 +20,4 @@ do
 done
 
 # Preparing output
-echo $NOTES >> $GITHUB_OUTPUT
+echo $NOTES
