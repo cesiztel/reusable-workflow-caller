@@ -42,12 +42,12 @@
               echo $change_log_entry_title
               last_element=${change_log_entry_title##*:}
               echo $last_element
-              NOTES="$NOTES \n $last_element"
+              NOTES="$NOTES\n$last_element"
             done
             
-            echo $NOTES
+            FINAL_NOTES=`echo $NOTES`            
             # Preparing output
-            echo "release_notes=$NOTES" >> "$GITHUB_OUTPUT"
+            echo "release_notes=$FINAL_NOTES" >> "$GITHUB_OUTPUT"
           shell: bash
           env: 
             GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
