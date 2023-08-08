@@ -19,11 +19,12 @@
           run: |
             # Start building change log
             # 1. Get the previous tag
-            PREVIOUS_TAG=$(git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1))
-            PR_RELEASE=$(git log --merges --grep 'Merge pull request' --pretty=format:%s $PREVIOUS_TAG..${{github.ref}} | grep -o '#[0-9]*')
-            
-            echo $PREVIOUS_TAG
-            echo $PR_RELEASE
+            git describe --abbrev=0 --tags
+            # PREVIOUS_TAG=`git describe --abbrev=0 --tags $(git rev-list --tags --skip=1 --max-count=1)`
+            # PR_RELEASE=`git log --merges --grep 'Merge pull request' --pretty=format:%s $PREVIOUS_TAG..${{github.ref}} | grep -o '#[0-9]*'`
+             
+            # echo $PREVIOUS_TAG
+            # echo $PR_RELEASE
           shell: bash
         
         - name: Create Release
