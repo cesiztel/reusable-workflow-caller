@@ -31,16 +31,16 @@
             # List of the PRS of the release $PR_RELEASE
             # Preparing notes template"
             echo "release_notes<<EOF" >> $GITHUB_OUTPUT
-            echo "User story | Description" >> $GITHUB_OUTPUT
-            echo "-- | --" >> $GITHUB_OUTPUT
+            echo "### 🚀 Features included on the release: \n" >> $GITHUB_OUTPUT
             # Looping over releaseses to get the data
             for pr_number in $PR_RELEASE
             do
               pr_number=${pr_number:1}
               change_log_entry_title=`gh pr view $pr_number | head -n 1`
               last_element=${change_log_entry_title##*:}
-              echo $last_element >> $GITHUB_OUTPUT
+              echo "* $last_element \n"
             done
+            # Preparing output
             echo "EOF" >> $GITHUB_OUTPUT
           shell: bash
           env: 
