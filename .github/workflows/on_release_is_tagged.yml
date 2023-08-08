@@ -40,8 +40,8 @@
               NOTES+="* $last_element \n"
             done
             # Preparing output
-            echo "MULTI_LINES_NOTES<<EOF" >> $GITHUB_OUTPUT
-            echo "release_notes=$NOTES" >> $GITHUB_OUTPUT
+            echo "release_notes<<EOF" >> $GITHUB_OUTPUT
+            echo $NOTES >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
           shell: bash
           env: 
