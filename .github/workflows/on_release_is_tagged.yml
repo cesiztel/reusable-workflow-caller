@@ -5,7 +5,7 @@
         - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
       branches:
         - main
-        
+
   name: Create Github release after tag releasable code
    
   jobs:
@@ -39,6 +39,7 @@
               echo $pr_number
               # Getting data from PR: ${pr_number}
               change_log_entry_title=`gh pr view ${pr_number:1} | head -n 1`
+              echo $change_log_entry_title
               # Stripping the title 
               read lastElement <<< "${change_log_entry_title##*:}"
               # Adding release to the notes
