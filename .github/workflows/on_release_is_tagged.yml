@@ -46,6 +46,7 @@
               echo $last_element
               NOTES="$NOTES\n$last_element"
             done
+            echo $NOTES
             printf $NOTES
             FINAL_NOTES=`printf $NOTES`            
             # Preparing output
