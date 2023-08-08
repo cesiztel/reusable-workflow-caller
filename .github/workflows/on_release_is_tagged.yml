@@ -1,10 +1,8 @@
   on:
     push:
-      branches:
-        - main
       # Sequence of patterns matched against refs/tags
-      # tags:
-      #  - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      tags:
+        - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
   name: Create Github release after tag releasable code
    
@@ -45,7 +43,7 @@
             done
 
             # Preparing output
-            echo $NOTES
+            echo "release_notes=$NOTES" >> "$GITHUB_OUTPUT"
           shell: bash
           env: 
             GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
