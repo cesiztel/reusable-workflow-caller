@@ -38,7 +38,7 @@
             do
               pr_number=${pr_number:1}
               change_log_entry_title=`gh pr view $pr_number | head -n 1`
-              last_element = ${change_log_entry_title##*:}
+              last_element=${change_log_entry_title##*:}
               NOTES+="$lastElement \n"
             done
 
