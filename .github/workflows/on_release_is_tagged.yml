@@ -36,7 +36,9 @@
             # Looping over releaseses to get the data
             for pr_number in $PR_RELEASE
             do
-                echo ${pr_number}
+              # Getting data from PR: ${pr_number}
+              change_log_entry_title=`gh pr view ${pr_number} | head -n 1`
+              echo $change_log_entry_title
             done
 
             # Preparing output
