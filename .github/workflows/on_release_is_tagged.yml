@@ -36,12 +36,7 @@
             # Looping over releaseses to get the data
             for pr_number in $PR_RELEASE
             do
-                # Getting data from PR: ${pr_number}
-                change_log_entry_title=`gh pr view ${pr_number} | head -n 1`
-                # Stripping the title 
-                read lastElement <<< "${change_log_entry_title##*:}"
-                # Adding release to the notes
-                NOTES+="$lastElement \n"
+                echo ${pr_number}
             done
 
             # Preparing output
