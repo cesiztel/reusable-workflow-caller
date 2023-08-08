@@ -26,10 +26,13 @@
             echo $REV_LIST
             PREVIOUS_TAG=`git describe --abbrev=0 --tags $REV_LIST`
             echo $PREVIOUS_TAG
-            # PR_RELEASE=`git log --merges --grep 'Merge pull request' --pretty=format:%s $PREVIOUS_TAG..${{github.ref}} | grep -o '#[0-9]*'`
+            PR_RELEASE=`git log --merges --grep 'Merge pull request' --pretty=format:%s $PREVIOUS_TAG..${{github.ref}} | grep -o '#[0-9]*'`
              
-            # echo $PREVIOUS_TAG
-            # echo $PR_RELEASE
+            # List of the PRS of the release $PR_RELEASE
+            # Preparing notes template"
+            echo PR_RELEASE
+            NOTES="User story | Description \n -- | -- \n"
+            echo NOTES
           shell: bash
         
         - name: Create Release
