@@ -46,7 +46,7 @@
               echo $last_element
               NOTES="$NOTES\n$last_element"
             done
-            FINAL_NOTES=`echo $NOTES`            
+            FINAL_NOTES=`printf $NOTES`            
             # Preparing output
             echo "release_notes=$FINAL_NOTES" >> "$GITHUB_OUTPUT"
           shell: bash
