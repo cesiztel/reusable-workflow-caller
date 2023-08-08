@@ -41,7 +41,8 @@
               last_element=${change_log_entry_title##*:}
               NOTES+="$lastElement \n"
             done
-
+            
+            echo $NOTES
             # Preparing output
             echo "release_notes=$NOTES" >> "$GITHUB_OUTPUT"
           shell: bash
