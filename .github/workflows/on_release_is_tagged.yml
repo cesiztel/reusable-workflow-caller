@@ -32,7 +32,7 @@
             # Preparing notes template"
             echo "release_notes<<EOF" >> $GITHUB_OUTPUT
             echo "| User story | Description |" >> $GITHUB_OUTPUT
-            # echo "| -- | -- |" >> $GITHUB_OUTPUT
+            echo "| -- | -- |" >> $GITHUB_OUTPUT
             # Looping over releaseses to get the data
             for pr_number in $PR_RELEASE
             do
