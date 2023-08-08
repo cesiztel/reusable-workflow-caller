@@ -7,7 +7,7 @@
       #  - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
   name: Create Github release after tag releasable code
-
+   
   jobs:
     create_release:
       name: Create Github release
@@ -44,7 +44,8 @@
             # Preparing output
             echo $NOTES
           shell: bash
-        
+          env: 
+            GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         - name: Create Release
           uses: mikepenz/action-gh-release@v0.2.0-a03 #softprops/action-gh-release
           with:
