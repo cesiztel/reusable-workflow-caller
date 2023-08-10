@@ -21,5 +21,5 @@ jobs:
           curl -X POST https://api.github.com/repos/cesiztel/reusable-workflow/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.REPO_ACCESS_TOKEN }} \
-          --data '{"event_type": "reusable-workflow-caller", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+          --data '{"event_type": "reusable-workflow-caller"}'
       - uses: actions/checkout@v3
