@@ -6,9 +6,20 @@ name: On Github Release is publised
 on:
   release:
     types: [published]
+  push:
+    branches:
+      - main
 
 jobs:
   call_release_pipeline:
     name: Run release pipeline
-    uses: Postnl-Production/ebe-release-pipeline/.github/workflows/release_ebe.yml@main
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPATECE, so your job can access it
+      - name: Run release pipeline workflow
+        run: |
+          curl -X POST https://api.github.com/repos/cesiztel/reusable-workflow/dispatches \
+          -H 'Accept: application/vnd.github.everest-preview+json' \
+          -u ${{ secrets.REPO_ACCESS_TOKEN }} \
+          --data '{"event_type": "reusable-workflow-caller", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
+      - uses: actions/checkout@v3
